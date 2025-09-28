@@ -1,0 +1,45 @@
+server:
+  contextPath: /sasb
+  port: 8080
+  ssl:
+    enabled: false
+    key-alias: 1
+    key-store: classpath:certificates/COMPESA2024.jks
+    key-store-type: pkcs12
+    key-store-password: COMPESA2024
+spring:
+  servlet:
+    multipart:
+      max-file-size: 150MB
+      max-request-size: 150MB
+springdoc:
+  api:
+    docs:
+      enabled: true
+api:
+  security:
+    token:
+      secret:
+        key: "@sasbcomp3sa2023!"
+      issuer: sasb-compesa-api
+---
+spring:
+  config:
+    activate:
+      on-profile: local,default
+  datasource:
+    # url: jdbc:oracle:thin:@//localhost:1522/XEPDB1
+    # username: sic
+    # password: sasb@compesa
+    url: jdbc:oracle:thin:@//192.168.1.220:1521/BLCMCOP
+    username: sic
+    password: blcmcop
+    driver-class-name: oracle.jdbc.OracleDriver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        show_sql: false
+        format_sql: false
+        dialect: org.hibernate.dialect.Oracle12cDialect
